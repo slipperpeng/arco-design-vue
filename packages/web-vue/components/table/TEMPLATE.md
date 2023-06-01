@@ -17,6 +17,8 @@ description: It is used for data collection, display, analysis and processing, a
 ```
 ---
 
+@import ./__demo__/emptyData.md
+
 @import ./__demo__/basic.md
 
 @import ./__demo__/row-selection.md

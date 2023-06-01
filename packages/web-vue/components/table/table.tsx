@@ -649,9 +649,12 @@ export default defineComponent({
 
     // whether to scroll
     const isScroll = computed(() => {
-      const x = Boolean(props.scroll?.x || props.scroll?.minWidth);
-      const y = Boolean(props.scroll?.y || props.scroll?.maxHeight);
-      return { x, y };
+      if (flattenData.value.length) {
+        const x = Boolean(props.scroll?.x || props.scroll?.minWidth);
+        const y = Boolean(props.scroll?.y || props.scroll?.maxHeight);
+        return { x, y };
+      }
+      return { x: false, y: false };
     });
 
     // const theadRef = ref<HTMLElement>();
@@ -1262,36 +1265,36 @@ export default defineComponent({
     });
 
     const headerStyle = computed(() => {
-      if (isScroll.value.x) {
-        const style: CSSProperties = {
-          width: isNumber(props.scroll?.x)
-            ? `${props.scroll?.x}px`
-            : props.scroll?.x,
-        };
-        if (props.scroll?.minWidth) {
-          style.minWidth = isNumber(props.scroll.minWidth)
-            ? `${props.scroll.minWidth}px`
-            : props.scroll.minWidth;
-        }
-        return style;
-      }
+      // if (isScroll.value.x) {
+      //   const style: CSSProperties = {
+      //     width: isNumber(props.scroll?.x)
+      //       ? `${props.scroll?.x}px`
+      //       : props.scroll?.x,
+      //   };
+      //   if (props.scroll?.minWidth) {
+      //     style.minWidth = isNumber(props.scroll.minWidth)
+      //       ? `${props.scroll.minWidth}px`
+      //       : props.scroll.minWidth;
+      //   }
+      //   return style;
+      // }
       return undefined;
     });
 
     const contentStyle = computed(() => {
-      if (isScroll.value.x && flattenData.value.length > 0) {
-        const style: CSSProperties = {
-          width: isNumber(props.scroll?.x)
-            ? `${props.scroll?.x}px`
-            : props.scroll?.x,
-        };
-        if (props.scroll?.minWidth) {
-          style.minWidth = isNumber(props.scroll.minWidth)
-            ? `${props.scroll.minWidth}px`
-            : props.scroll.minWidth;
-        }
-        return style;
-      }
+      // if (isScroll.value.x && flattenData.value.length > 0) {
+      //   const style: CSSProperties = {
+      //     width: isNumber(props.scroll?.x)
+      //       ? `${props.scroll?.x}px`
+      //       : props.scroll?.x,
+      //   };
+      //   if (props.scroll?.minWidth) {
+      //     style.minWidth = isNumber(props.scroll.minWidth)
+      //       ? `${props.scroll.minWidth}px`
+      //       : props.scroll.minWidth;
+      //   }
+      //   return style;
+      // }
       return undefined;
     });
 
@@ -1418,9 +1421,19 @@ export default defineComponent({
 
     const renderEmpty = () => {
       return (
-        <Tr empty>
+        <Tr>
           <Td colSpan={dataColumns.value.length + operations.value.length}>
-            {slots.empty?.() ?? <Empty />}
+            <div
+              style={{
+                width: `${contentRef.value?.clientWidth}px`,
+                margin: '-9px -16px',
+                position: 'sticky',
+                left: 0,
+              }}
+            >
+              {' '}
+              {slots.empty?.() ?? <Empty />}
+            </div>
           </Td>
         </Tr>
       );

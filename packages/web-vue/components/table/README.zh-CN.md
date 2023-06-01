@@ -6,6 +6,8 @@ title: 表格 Table
 description: 用于数据收集展示、分析整理、操作处理。
 ```
 
+@import ./__demo__/emptyData.md
+
 @import ./__demo__/basic.md
 
 @import ./__demo__/row-selection.md
